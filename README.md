@@ -1,5 +1,5 @@
 # InventoryManagement_Java
-# 📦 PL_RUDIMUSTAKIM_136: Aplikasi Manajemen Inventaris Barang (Java Swing)
+# 📦 UAP_RUDIMUSTAKIM & Avina Pinky Firu Ananda : Aplikasi Manajemen Inventaris Barang (Java Swing)
 
 [![Lisensi](https://img.shields.io/badge/Lisensi-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
