@@ -8,7 +8,7 @@
 ---
 
 ## 📖 Deskripsi Proyek
-tes
+testesaateas
 Proyek ini merupakan implementasi **Aplikasi Manajemen Inventaris Barang berbasis GUI**
 menggunakan bahasa pemrograman **Java** dengan **Java Swing**.
 Aplikasi ini dikembangkan untuk memenuhi **Ujian Akhir Praktikum (UAP) Pemrograman Lanjut**
