@@ -148,7 +148,7 @@ InventoryManagement_Java
 
 - **Nama:** M. Rudi Mustakim
 - **NIM:** 202410370110136
-- - **GitHub Username:** Rudyyz
+- **GitHub Username:** Rudyyz
 - **Nama:** Avina Pinky Firu Ananda
 - **NIM:** 202410370110141
 - **GitHub Username:** vinaaaa19
