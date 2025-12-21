@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileUtil {
-
     private static final String FILE = "src/main/resources/barang.csv";
 
-    public static List<Barang> readBarang() {
+    public static List<Barang> read() {
         List<Barang> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(FILE))) {
             String line;
@@ -24,20 +23,21 @@ public class FileUtil {
                         LocalDate.parse(d[4])
                 ));
             }
-        } catch (Exception e) {
-            System.out.println("File belum ada / kosong");
-        }
+        } catch (Exception ignored) {}
         return list;
     }
 
-    public static void writeBarang(List<Barang> list) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE))) {
+    public static void write(List<Barang> list) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(FILE))) {
             for (Barang b : list) {
-                bw.write(b.getKode()+","+b.getNama()+","+b.getStok()+","+b.getHarga()+","+b.getTanggalMasuk());
-                bw.newLine();
+                pw.println(
+                        b.getKode() + "," +
+                                b.getNama() + "," +
+                                b.getStok() + "," +
+                                b.getHarga() + "," +
+                                b.getTanggalMasuk()
+                );
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) {}
     }
 }
