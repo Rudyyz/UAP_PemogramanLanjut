@@ -31,44 +31,28 @@ public class ListBarangView extends JFrame {
         /* ================= HEADER ================= */
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(UIStyle.PRIMARY);
-        header.setBorder(new EmptyBorder(14, 20, 14, 20));
+        header.setBorder(new EmptyBorder(16, 24, 16, 24));
 
-        JButton btnBackTop = new JButton("←");
-        btnBackTop.setFont(new Font("Segoe UI", Font.BOLD, 26));
-        btnBackTop.setForeground(Color.WHITE);
-        btnBackTop.setBackground(UIStyle.PRIMARY);
-        btnBackTop.setBorderPainted(false);
-        btnBackTop.setFocusPainted(false);
-        btnBackTop.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnBackTop.addActionListener(e -> {
-            new DashboardView().setVisible(true);
-            dispose();
-        });
-
+        // ❌ TANPA TOMBOL PANAH
         JLabel lblTitle = new JLabel("Data Barang");
         lblTitle.setForeground(Color.WHITE);
-        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
 
-        JPanel leftHeader = new JPanel(new FlowLayout(FlowLayout.LEFT, 14, 0));
-        leftHeader.setOpaque(false);
-        leftHeader.add(btnBackTop);
-        leftHeader.add(lblTitle);
-
-        header.add(leftHeader, BorderLayout.WEST);
+        header.add(lblTitle, BorderLayout.WEST);
 
         /* ================= SEARCH ================= */
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         searchPanel.setOpaque(false);
 
-        txtSearch = new JTextField("nama barang");
-        txtSearch.setPreferredSize(new Dimension(260, 36));
+        txtSearch = new JTextField("Nama Barang");
+        txtSearch.setPreferredSize(new Dimension(260, 38));
         txtSearch.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         txtSearch.setForeground(Color.GRAY);
 
         txtSearch.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (txtSearch.getText().equals("nama barang")) {
+                if (txtSearch.getText().equals("Nama Barang")) {
                     txtSearch.setText("");
                     txtSearch.setForeground(Color.BLACK);
                 }
@@ -77,14 +61,15 @@ public class ListBarangView extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 if (txtSearch.getText().isEmpty()) {
-                    txtSearch.setText("nama barang");
+                    txtSearch.setText("Nama Barang");
                     txtSearch.setForeground(Color.GRAY);
                 }
             }
         });
 
-        JButton btnSearch = new JButton("🔍 Cari");
+        JButton btnSearch = new JButton("Cari");
         btnSearch.setFocusPainted(false);
+        btnSearch.setPreferredSize(new Dimension(90, 38));
         btnSearch.addActionListener(e -> searchData());
 
         searchPanel.add(txtSearch);
@@ -103,7 +88,7 @@ public class ListBarangView extends JFrame {
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // NON EDITABLE
+                return false;
             }
         };
 
@@ -111,26 +96,33 @@ public class ListBarangView extends JFrame {
         table.setRowHeight(36);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        // === GARIS TABEL HITAM ===
+        table.setShowGrid(true);
+        table.setGridColor(Color.BLACK);
+        table.getTableHeader().setBorder(
+                BorderFactory.createLineBorder(Color.BLACK)
+        );
+
         table.setSelectionBackground(new Color(220, 235, 255));
-        table.setSelectionForeground(Color.BLACK); // FIX BURAM
+        table.setSelectionForeground(Color.BLACK);
         table.setForeground(Color.BLACK);
-        table.setShowGrid(false);
         table.setFillsViewportHeight(true);
 
         loadData(service.getAll());
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         card.add(scrollPane, BorderLayout.CENTER);
 
         /* ================= BUTTON BAWAH ================= */
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 12, 10));
+        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 14, 12));
         bottom.setOpaque(false);
 
-        JButton btnEdit = createButton("✏ Edit", UIStyle.PRIMARY);
-        JButton btnDelete = createButton("🗑 Hapus", new Color(220, 53, 69));
-        JButton btnBack = createButton("← Kembali", new Color(108, 117, 125));
+        JButton btnEdit = createButton("Edit", UIStyle.PRIMARY);
+        JButton btnDelete = createButton("Hapus", new Color(220, 53, 69));
+        JButton btnBack = createButton("Kembali", new Color(108, 117, 125));
 
         btnEdit.addActionListener(e -> editData());
         btnDelete.addActionListener(e -> deleteData());
@@ -156,12 +148,13 @@ public class ListBarangView extends JFrame {
         setContentPane(root);
     }
 
-    /* ================= HELPER ================= */
+    /* ================= BUTTON HELPER ================= */
     private JButton createButton(String text, Color bg) {
         JButton btn = new JButton(text);
         btn.setBackground(bg);
         btn.setForeground(Color.WHITE);
-        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        btn.setPreferredSize(new Dimension(160, 45)); // 🔘 LEBIH BESAR
         btn.setFocusPainted(false);
         return btn;
     }

@@ -22,7 +22,7 @@ public class DashboardView extends JFrame {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
         header.setOpaque(false);
 
-        JLabel title = new JLabel("🛍️ Dashboard Inventaris");
+        JLabel title = new JLabel("Dashboard Inventaris");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 

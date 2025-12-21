@@ -16,45 +16,31 @@ public class FormBarangView extends JFrame {
     private int index = -1;
 
     public FormBarangView() {
-        setTitle("Form Barang");
-        setSize(520, 420);
+        setTitle("FORM BARANG");
+        setSize(600, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // ===== ROOT =====
         JPanel root = new JPanel(new BorderLayout());
-        root.setBackground(new Color(220, 225, 235));
-        root.setBorder(new EmptyBorder(30, 30, 30, 30));
+        root.setBackground(new Color(235, 240, 248));
 
-        // ===== CARD =====
-        JPanel card = new JPanel(new BorderLayout());
-        card.setBackground(Color.WHITE);
-        card.setBorder(new EmptyBorder(20, 25, 20, 25));
-
-        // ===== HEADER =====
+        // ===== HEADER BIRU =====
         JPanel header = new JPanel(new BorderLayout());
-        header.setOpaque(false);
+        header.setBackground(UIStyle.PRIMARY);
+        header.setPreferredSize(new Dimension(0, 60));
 
-        JLabel title = new JLabel("📦  Form Barang");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
-
-        JButton btnClose = new JButton("✕");
-        btnClose.setBorderPainted(false);
-        btnClose.setContentAreaFilled(false);
-        btnClose.setFocusPainted(false);
-        btnClose.addActionListener(e -> {
-            new DashboardView().setVisible(true);
-            dispose();
-        });
+        JLabel title = new JLabel("Form Barang");
+        title.setForeground(Color.WHITE);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        title.setBorder(new EmptyBorder(0, 20, 0, 0));
 
         header.add(title, BorderLayout.WEST);
-        header.add(btnClose, BorderLayout.EAST);
 
-        // ===== FORM FIELD =====
-        JPanel form = new JPanel();
+        // ===== FORM =====
+        JPanel form = new JPanel(new GridLayout(4, 2, 20, 20));
         form.setOpaque(false);
-        form.setLayout(new GridLayout(4, 2, 15, 15));
-        form.setBorder(new EmptyBorder(20, 10, 20, 10));
+        form.setBorder(new EmptyBorder(30, 60, 30, 60));
 
         kode = createField();
         nama = createField();
@@ -62,35 +48,45 @@ public class FormBarangView extends JFrame {
         harga = createField();
         harga.setText("Rp. ");
 
-        form.add(new JLabel("Kode"));
+        form.add(createLabel("Kode"));
         form.add(kode);
-        form.add(new JLabel("Nama"));
+        form.add(createLabel("Nama"));
         form.add(nama);
-        form.add(new JLabel("Stok"));
+        form.add(createLabel("Stok"));
         form.add(stok);
-        form.add(new JLabel("Harga"));
+        form.add(createLabel("Harga"));
         form.add(harga);
 
-        // ===== BUTTON SIMPAN =====
-        JButton btnSimpan = new JButton("💾  Simpan");
-        btnSimpan.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        // ===== BUTTONS =====
+        JButton btnSimpan = new JButton("Simpan");
+        btnSimpan.setFont(new Font("Segoe UI", Font.BOLD, 16));
         btnSimpan.setBackground(UIStyle.PRIMARY);
         btnSimpan.setForeground(Color.WHITE);
         btnSimpan.setFocusPainted(false);
-        btnSimpan.setPreferredSize(new Dimension(160, 40));
-
+        btnSimpan.setPreferredSize(new Dimension(180, 44));
         btnSimpan.addActionListener(e -> simpan());
 
-        JPanel bottom = new JPanel();
+        JButton btnKembali = new JButton("Kembali");
+        btnKembali.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        btnKembali.setBackground(new Color(120, 120, 120));
+        btnKembali.setForeground(Color.WHITE);
+        btnKembali.setFocusPainted(false);
+        btnKembali.setPreferredSize(new Dimension(180, 44));
+        btnKembali.addActionListener(e -> {
+            new DashboardView().setVisible(true);
+            dispose();
+        });
+
+        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         bottom.setOpaque(false);
         bottom.add(btnSimpan);
+        bottom.add(btnKembali);
 
         // ===== SUSUN =====
-        card.add(header, BorderLayout.NORTH);
-        card.add(form, BorderLayout.CENTER);
-        card.add(bottom, BorderLayout.SOUTH);
+        root.add(header, BorderLayout.NORTH);
+        root.add(form, BorderLayout.CENTER);
+        root.add(bottom, BorderLayout.SOUTH);
 
-        root.add(card, BorderLayout.CENTER);
         setContentPane(root);
     }
 
@@ -127,11 +123,48 @@ public class FormBarangView extends JFrame {
         }
     }
 
-    // ===== FIELD STYLE =====
+    // ===== LABEL =====
+    private JLabel createLabel(String text) {
+        JLabel lbl = new JLabel(text);
+        lbl.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        return lbl;
+    }
+
+    // ===== FIELD =====
     private JTextField createField() {
-        JTextField tf = new JTextField();
-        tf.setPreferredSize(new Dimension(250, 36));
-        tf.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        RoundedTextField tf = new RoundedTextField(22);
+        tf.setPreferredSize(new Dimension(280, 40));
+        tf.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         return tf;
+    }
+
+    // ===== ROUNDED TEXT FIELD =====
+    class RoundedTextField extends JTextField {
+        private final int radius;
+
+        public RoundedTextField(int radius) {
+            this.radius = radius;
+            setOpaque(false);
+            setBorder(new EmptyBorder(8, 14, 8, 14));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2.setColor(Color.WHITE);
+            g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+            super.paintComponent(g);
+        }
+
+        @Override
+        protected void paintBorder(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2.setColor(Color.BLACK);
+            g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+        }
     }
 }
