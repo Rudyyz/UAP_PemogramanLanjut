@@ -4,15 +4,26 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Class DashboardView merupakan tampilan utama
+ * (dashboard) dari aplikasi inventaris.
+ *
+ * Tampilan ini menyediakan menu navigasi
+ * ke fitur Data Barang, Tambah Barang, dan Laporan.
+ */
 public class DashboardView extends JFrame {
 
+    /**
+     * Konstruktor DashboardView untuk
+     * menginisialisasi dan menampilkan komponen UI dashboard.
+     */
     public DashboardView() {
         setTitle("DASHBOARD INVENTARIS");
         setSize(700, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // ===== ROOT =====
+        // ===== ROOT PANEL =====
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(new Color(240, 244, 249));
         root.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -84,7 +95,14 @@ public class DashboardView extends JFrame {
         setContentPane(root);
     }
 
-    // ===== CARD =====
+    /**
+     * Membuat komponen kartu menu yang dapat diklik.
+     *
+     * @param icon ikon kartu
+     * @param text teks menu
+     * @param action aksi yang dijalankan saat kartu diklik
+     * @return panel kartu
+     */
     private JPanel createCard(String icon, String text, java.awt.event.ActionListener action) {
         RoundedPanel card = new RoundedPanel(35);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -125,16 +143,30 @@ public class DashboardView extends JFrame {
         return card;
     }
 
-    // ===== ROUNDED PANEL (BORDER HITAM) =====
+    /**
+     * Panel khusus dengan sudut membulat
+     * yang digunakan sebagai kartu menu.
+     */
     class RoundedPanel extends JPanel {
+
         private final int radius;
         private boolean hover = false;
 
+        /**
+         * Konstruktor RoundedPanel.
+         *
+         * @param radius tingkat kelengkungan sudut panel
+         */
         public RoundedPanel(int radius) {
             this.radius = radius;
             setOpaque(false);
         }
 
+        /**
+         * Mengatur efek hover pada kartu.
+         *
+         * @param hover status hover
+         */
         public void setHover(boolean hover) {
             this.hover = hover;
             repaint();
@@ -156,7 +188,7 @@ public class DashboardView extends JFrame {
                     radius, radius
             );
 
-            // Border HITAM
+            // Border
             g2.setStroke(new BasicStroke(2f));
             g2.setColor(Color.BLACK);
             g2.drawRoundRect(

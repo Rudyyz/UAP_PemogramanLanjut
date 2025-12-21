@@ -9,12 +9,19 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDate;
 
+/**
+ * Class FormBarangView digunakan untuk
+ * menambah dan mengedit data barang.
+ */
 public class FormBarangView extends JFrame {
 
     private JTextField kode, nama, stok, harga;
     private BarangService service = new BarangService();
     private int index = -1;
 
+    /**
+     * Konstruktor untuk form tambah barang.
+     */
     public FormBarangView() {
         setTitle("FORM BARANG");
         setSize(600, 450);
@@ -25,7 +32,7 @@ public class FormBarangView extends JFrame {
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(new Color(235, 240, 248));
 
-        // ===== HEADER BIRU =====
+        // ===== HEADER =====
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(UIStyle.PRIMARY);
         header.setPreferredSize(new Dimension(0, 60));
@@ -57,7 +64,7 @@ public class FormBarangView extends JFrame {
         form.add(createLabel("Harga"));
         form.add(harga);
 
-        // ===== BUTTONS =====
+        // ===== BUTTON =====
         JButton btnSimpan = new JButton("Simpan");
         btnSimpan.setFont(new Font("Segoe UI", Font.BOLD, 16));
         btnSimpan.setBackground(UIStyle.PRIMARY);
@@ -82,7 +89,6 @@ public class FormBarangView extends JFrame {
         bottom.add(btnSimpan);
         bottom.add(btnKembali);
 
-        // ===== SUSUN =====
         root.add(header, BorderLayout.NORTH);
         root.add(form, BorderLayout.CENTER);
         root.add(bottom, BorderLayout.SOUTH);
@@ -90,7 +96,12 @@ public class FormBarangView extends JFrame {
         setContentPane(root);
     }
 
-    // ===== CONSTRUCTOR EDIT =====
+    /**
+     * Konstruktor untuk form edit barang.
+     *
+     * @param b data barang
+     * @param index posisi data barang
+     */
     public FormBarangView(Barang b, int index) {
         this();
         this.index = index;
@@ -101,7 +112,9 @@ public class FormBarangView extends JFrame {
         harga.setText(String.valueOf(b.getHarga()));
     }
 
-    // ===== SIMPAN =====
+    /**
+     * Menyimpan data barang (tambah atau edit).
+     */
     private void simpan() {
         try {
             Barang b = new Barang(
@@ -123,14 +136,23 @@ public class FormBarangView extends JFrame {
         }
     }
 
-    // ===== LABEL =====
+    /**
+     * Membuat label form.
+     *
+     * @param text teks label
+     * @return label
+     */
     private JLabel createLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 15));
         return lbl;
     }
 
-    // ===== FIELD =====
+    /**
+     * Membuat field input dengan sudut membulat.
+     *
+     * @return text field
+     */
     private JTextField createField() {
         RoundedTextField tf = new RoundedTextField(22);
         tf.setPreferredSize(new Dimension(280, 40));
@@ -138,10 +160,18 @@ public class FormBarangView extends JFrame {
         return tf;
     }
 
-    // ===== ROUNDED TEXT FIELD =====
+    /**
+     * TextField dengan tampilan sudut membulat.
+     */
     class RoundedTextField extends JTextField {
+
         private final int radius;
 
+        /**
+         * Konstruktor RoundedTextField.
+         *
+         * @param radius tingkat kelengkungan sudut
+         */
         public RoundedTextField(int radius) {
             this.radius = radius;
             setOpaque(false);
@@ -151,7 +181,10 @@ public class FormBarangView extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON
+            );
 
             g2.setColor(Color.WHITE);
             g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
@@ -161,7 +194,10 @@ public class FormBarangView extends JFrame {
         @Override
         protected void paintBorder(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(
+                    RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON
+            );
 
             g2.setColor(Color.BLACK);
             g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);

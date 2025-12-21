@@ -10,10 +10,21 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Class LaporanView digunakan untuk menampilkan
+ * ringkasan laporan inventaris barang.
+ *
+ * Laporan yang ditampilkan meliputi total jenis barang
+ * dan total stok barang.
+ */
 public class LaporanView extends JFrame {
 
     private BarangService service = new BarangService();
 
+    /**
+     * Konstruktor LaporanView untuk
+     * menginisialisasi tampilan laporan inventaris.
+     */
     public LaporanView() {
         setTitle("LAPORAN INVENTARIS");
         setSize(750, 420);
@@ -53,11 +64,8 @@ public class LaporanView extends JFrame {
         table.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
-        // GARIS TABEL
         table.setShowGrid(true);
         table.setGridColor(Color.BLACK);
-
-        // BORDER LUAR TABEL (agar kiri-kanan tidak hilang)
         table.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         table.getTableHeader().setBorder(
                 BorderFactory.createLineBorder(Color.BLACK)
@@ -66,8 +74,6 @@ public class LaporanView extends JFrame {
         table.setSelectionBackground(new Color(220, 235, 255));
         table.setSelectionForeground(Color.BLACK);
         table.setForeground(Color.BLACK);
-
-        // ❗ penting: supaya tidak ada baris kosong
         table.setFillsViewportHeight(false);
 
         JScrollPane scrollPane = new JScrollPane(table);

@@ -12,6 +12,13 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
 
+/**
+ * Class ListBarangView digunakan untuk menampilkan
+ * daftar data barang dalam bentuk tabel.
+ *
+ * View ini menyediakan fitur pencarian, edit,
+ * hapus data barang, serta navigasi kembali ke dashboard.
+ */
 public class ListBarangView extends JFrame {
 
     private JTable table;
@@ -19,6 +26,10 @@ public class ListBarangView extends JFrame {
     private JTextField txtSearch;
     private BarangService service = new BarangService();
 
+    /**
+     * Konstruktor ListBarangView untuk
+     * menginisialisasi tampilan daftar barang.
+     */
     public ListBarangView() {
         setTitle("DATA BARANG");
         setSize(1050, 560);
@@ -33,7 +44,6 @@ public class ListBarangView extends JFrame {
         header.setBackground(UIStyle.PRIMARY);
         header.setBorder(new EmptyBorder(16, 24, 16, 24));
 
-        // ❌ TANPA TOMBOL PANAH
         JLabel lblTitle = new JLabel("Data Barang");
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
@@ -97,7 +107,6 @@ public class ListBarangView extends JFrame {
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
 
-        // === GARIS TABEL HITAM ===
         table.setShowGrid(true);
         table.setGridColor(Color.BLACK);
         table.getTableHeader().setBorder(
@@ -148,18 +157,28 @@ public class ListBarangView extends JFrame {
         setContentPane(root);
     }
 
-    /* ================= BUTTON HELPER ================= */
+    /**
+     * Membuat tombol dengan warna dan ukuran tertentu.
+     *
+     * @param text teks tombol
+     * @param bg warna latar tombol
+     * @return tombol
+     */
     private JButton createButton(String text, Color bg) {
         JButton btn = new JButton(text);
         btn.setBackground(bg);
         btn.setForeground(Color.WHITE);
         btn.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        btn.setPreferredSize(new Dimension(160, 45)); // 🔘 LEBIH BESAR
+        btn.setPreferredSize(new Dimension(160, 45));
         btn.setFocusPainted(false);
         return btn;
     }
 
-    /* ================= LOAD DATA ================= */
+    /**
+     * Menampilkan data barang ke dalam tabel.
+     *
+     * @param list daftar barang
+     */
     private void loadData(List<Barang> list) {
         model.setRowCount(0);
         for (Barang b : list) {
@@ -173,7 +192,9 @@ public class ListBarangView extends JFrame {
         }
     }
 
-    /* ================= SEARCH ================= */
+    /**
+     * Melakukan pencarian data barang berdasarkan nama.
+     */
     private void searchData() {
         String keyword = txtSearch.getText().toLowerCase();
         if (keyword.equals("nama barang")) keyword = "";
@@ -186,7 +207,9 @@ public class ListBarangView extends JFrame {
         );
     }
 
-    /* ================= DELETE ================= */
+    /**
+     * Menghapus data barang yang dipilih pada tabel.
+     */
     private void deleteData() {
         int row = table.getSelectedRow();
         if (row == -1) {
@@ -207,7 +230,9 @@ public class ListBarangView extends JFrame {
         }
     }
 
-    /* ================= EDIT ================= */
+    /**
+     * Membuka form edit data barang.
+     */
     private void editData() {
         int row = table.getSelectedRow();
         if (row == -1) {

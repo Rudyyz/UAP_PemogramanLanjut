@@ -148,9 +148,10 @@ InventoryManagement_Java
 
 - **Nama:** M. Rudi Mustakim
 - **NIM:** 202410370110136
+- - **GitHub Username:** Rudyyz
 - **Nama:** Avina Pinky Firu Ananda
 - **NIM:** 202410370110141
-- **GitHub Username:** Rudyyz
+- **GitHub Username:** vinaaaa19
 - **Deskripsi:** Implementasi Java Swing dan konsep OOP pada Aplikasi Manajemen Inventaris Barang
 
 ---
