@@ -62,7 +62,7 @@ public class DashboardView extends JFrame {
                 }
         ));
 
-        // ===== BOTTOM CARD (CENTERED) =====
+        // ===== BOTTOM CARD =====
         JPanel bottomCards = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomCards.setOpaque(false);
 
@@ -84,7 +84,7 @@ public class DashboardView extends JFrame {
         setContentPane(root);
     }
 
-    // ===== CARD COMPONENT =====
+    // ===== CARD =====
     private JPanel createCard(String icon, String text, java.awt.event.ActionListener action) {
         RoundedPanel card = new RoundedPanel(35);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -93,7 +93,7 @@ public class DashboardView extends JFrame {
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
         card.setBorder(new EmptyBorder(25, 25, 25, 25));
 
-        JLabel lblIcon = new JLabel(icon, SwingConstants.CENTER);
+        JLabel lblIcon = new JLabel(icon);
         lblIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 42));
         lblIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -106,31 +106,38 @@ public class DashboardView extends JFrame {
         card.add(lblText);
 
         card.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 action.actionPerformed(null);
             }
 
+            @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
-                card.setBackground(new Color(225, 235, 255));
-                card.repaint();
+                card.setHover(true);
             }
 
+            @Override
             public void mouseExited(java.awt.event.MouseEvent e) {
-                card.setBackground(Color.WHITE);
-                card.repaint();
+                card.setHover(false);
             }
         });
 
         return card;
     }
 
-    // ===== ROUNDED PANEL =====
+    // ===== ROUNDED PANEL (BORDER HITAM) =====
     class RoundedPanel extends JPanel {
         private final int radius;
+        private boolean hover = false;
 
         public RoundedPanel(int radius) {
             this.radius = radius;
             setOpaque(false);
+        }
+
+        public void setHover(boolean hover) {
+            this.hover = hover;
+            repaint();
         }
 
         @Override
@@ -140,11 +147,25 @@ public class DashboardView extends JFrame {
                     RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON
             );
-            g2.setColor(getBackground());
+
+            // Background
+            g2.setColor(hover ? new Color(225, 235, 255) : Color.WHITE);
             g2.fillRoundRect(
-                    0, 0, getWidth(), getHeight(),
+                    0, 0,
+                    getWidth(), getHeight(),
                     radius, radius
             );
+
+            // Border HITAM
+            g2.setStroke(new BasicStroke(2f));
+            g2.setColor(Color.BLACK);
+            g2.drawRoundRect(
+                    1, 1,
+                    getWidth() - 3,
+                    getHeight() - 3,
+                    radius, radius
+            );
+
             super.paintComponent(g);
         }
     }

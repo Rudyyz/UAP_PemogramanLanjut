@@ -18,7 +18,7 @@ public class ListBarangView extends JFrame {
     private BarangService service = new BarangService();
 
     public ListBarangView() {
-        setTitle("Data Barang");
+        setTitle("DATA BARANG");
         setSize(950, 520);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
