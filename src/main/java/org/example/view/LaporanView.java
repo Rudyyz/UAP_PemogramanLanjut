@@ -1,33 +1,27 @@
 package org.example.view;
 
-import org.example.model.Barang;
 import org.example.service.BarangService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class LaporanView extends JFrame {
 
     public LaporanView() {
-        BarangService s = new BarangService();
-        List<Barang> l = s.getAll();
-
-        int total = l.size();
-        int stok = l.stream().mapToInt(Barang::getStok).sum();
-
-        setTitle("Laporan");
-        setSize(300,200);
+        setTitle("Laporan Inventaris");
+        setSize(350, 220);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        BarangService s = new BarangService();
+
         JTextArea area = new JTextArea(
-                "Total Jenis Barang : "+total+"\n"+
-                        "Total Stok Barang  : "+stok
+                "Total Barang : " + s.getAll().size()
         );
         area.setEditable(false);
+        area.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        JButton back = new JButton("Kembali");
+        JButton back = new JButton("⬅ Kembali");
         back.addActionListener(e -> {
             new DashboardView().setVisible(true);
             dispose();

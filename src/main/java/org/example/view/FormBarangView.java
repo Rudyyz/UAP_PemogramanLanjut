@@ -9,19 +9,13 @@ import java.time.LocalDate;
 
 public class FormBarangView extends JFrame {
 
-    private JTextField kode,nama,stok,harga;
+    private JTextField kode, nama, stok, harga;
     private BarangService service = new BarangService();
     private int index = -1;
 
     public FormBarangView() {
-        this(null,-1);
-    }
-
-    public FormBarangView(Barang b, int idx) {
-        index = idx;
-
         setTitle("Form Barang");
-        setSize(350,300);
+        setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -30,43 +24,41 @@ public class FormBarangView extends JFrame {
         stok = new JTextField();
         harga = new JTextField();
 
-        if(b!=null){
-            kode.setText(b.getKode());
-            nama.setText(b.getNama());
-            stok.setText(String.valueOf(b.getStok()));
-            harga.setText(String.valueOf(b.getHarga()));
-        }
+        JPanel form = new JPanel(new GridLayout(4,2,10,10));
+        form.add(new JLabel("Kode")); form.add(kode);
+        form.add(new JLabel("Nama")); form.add(nama);
+        form.add(new JLabel("Stok")); form.add(stok);
+        form.add(new JLabel("Harga")); form.add(harga);
 
         JButton simpan = new JButton("Simpan");
-        JButton back = new JButton("Kembali");
+        simpan.addActionListener(e -> simpan());
 
-        simpan.addActionListener(e -> {
-            Barang barang = new Barang(
-                    kode.getText(),
-                    nama.getText(),
-                    Integer.parseInt(stok.getText()),
-                    Double.parseDouble(harga.getText()),
-                    LocalDate.now()
-            );
-            if(index==-1) service.addBarang(barang);
-            else service.updateBarang(index, barang);
+        add(form, BorderLayout.CENTER);
+        add(simpan, BorderLayout.SOUTH);
+    }
 
-            new ListBarangView().setVisible(true);
-            dispose();
-        });
+    public FormBarangView(Barang b, int index) {
+        this();
+        this.index = index;
+        kode.setText(b.getKode());
+        nama.setText(b.getNama());
+        stok.setText(String.valueOf(b.getStok()));
+        harga.setText(String.valueOf(b.getHarga()));
+    }
 
-        back.addActionListener(e -> {
-            new DashboardView().setVisible(true);
-            dispose();
-        });
+    private void simpan() {
+        Barang b = new Barang(
+                kode.getText(),
+                nama.getText(),
+                Integer.parseInt(stok.getText()),
+                Double.parseDouble(harga.getText()),
+                LocalDate.now()
+        );
 
-        JPanel p = new JPanel(new GridLayout(5,2,10,10));
-        p.add(new JLabel("Kode")); p.add(kode);
-        p.add(new JLabel("Nama")); p.add(nama);
-        p.add(new JLabel("Stok")); p.add(stok);
-        p.add(new JLabel("Harga")); p.add(harga);
-        p.add(simpan); p.add(back);
+        if (index == -1) service.addBarang(b);
+        else service.updateBarang(index, b);
 
-        add(p);
+        new ListBarangView().setVisible(true);
+        dispose();
     }
 }
