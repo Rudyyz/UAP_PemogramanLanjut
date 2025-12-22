@@ -6,21 +6,8 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Class FileUtil digunakan untuk membaca dan menulis
- * data barang ke dalam file CSV.
- */
 public class FileUtil {
-
-    /** Lokasi file penyimpanan data barang */
     private static final String FILE = "src/main/resources/barang.csv";
-
-    /**
-     * Membaca data barang dari file CSV.
-     *
-     * @return daftar barang
-     */
     public static List<Barang> read() {
         List<Barang> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(FILE))) {
@@ -39,11 +26,6 @@ public class FileUtil {
         return list;
     }
 
-    /**
-     * Menyimpan data barang ke dalam file CSV.
-     *
-     * @param list daftar barang yang akan disimpan
-     */
     public static void write(List<Barang> list) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE))) {
             for (Barang b : list) {

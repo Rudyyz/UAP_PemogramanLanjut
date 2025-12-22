@@ -12,13 +12,6 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
 
-/**
- * Class ListBarangView digunakan untuk menampilkan
- * daftar data barang dalam bentuk tabel.
- *
- * View ini menyediakan fitur pencarian, edit,
- * hapus data barang, serta navigasi kembali ke dashboard.
- */
 public class ListBarangView extends JFrame {
 
     private JTable table;
@@ -26,10 +19,6 @@ public class ListBarangView extends JFrame {
     private JTextField txtSearch;
     private BarangService service = new BarangService();
 
-    /**
-     * Konstruktor ListBarangView untuk
-     * menginisialisasi tampilan daftar barang.
-     */
     public ListBarangView() {
         setTitle("DATA BARANG");
         setSize(1050, 560);
@@ -157,13 +146,6 @@ public class ListBarangView extends JFrame {
         setContentPane(root);
     }
 
-    /**
-     * Membuat tombol dengan warna dan ukuran tertentu.
-     *
-     * @param text teks tombol
-     * @param bg warna latar tombol
-     * @return tombol
-     */
     private JButton createButton(String text, Color bg) {
         JButton btn = new JButton(text);
         btn.setBackground(bg);
@@ -174,11 +156,6 @@ public class ListBarangView extends JFrame {
         return btn;
     }
 
-    /**
-     * Menampilkan data barang ke dalam tabel.
-     *
-     * @param list daftar barang
-     */
     private void loadData(List<Barang> list) {
         model.setRowCount(0);
         for (Barang b : list) {
@@ -191,10 +168,6 @@ public class ListBarangView extends JFrame {
             });
         }
     }
-
-    /**
-     * Melakukan pencarian data barang berdasarkan nama.
-     */
     private void searchData() {
         String keyword = txtSearch.getText().toLowerCase();
         if (keyword.equals("nama barang")) keyword = "";
@@ -206,10 +179,6 @@ public class ListBarangView extends JFrame {
                         .toList()
         );
     }
-
-    /**
-     * Menghapus data barang yang dipilih pada tabel.
-     */
     private void deleteData() {
         int row = table.getSelectedRow();
         if (row == -1) {
