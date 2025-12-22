@@ -10,21 +10,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-/**
- * Class LaporanView digunakan untuk menampilkan
- * ringkasan laporan inventaris barang.
- *
- * Laporan yang ditampilkan meliputi total jenis barang
- * dan total stok barang.
- */
 public class LaporanView extends JFrame {
 
     private BarangService service = new BarangService();
 
-    /**
-     * Konstruktor LaporanView untuk
-     * menginisialisasi tampilan laporan inventaris.
-     */
     public LaporanView() {
         setTitle("LAPORAN INVENTARIS");
         setSize(750, 420);

@@ -8,20 +8,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDate;
-
-/**
- * Class FormBarangView digunakan untuk
- * menambah dan mengedit data barang.
- */
 public class FormBarangView extends JFrame {
 
     private JTextField kode, nama, stok, harga;
     private BarangService service = new BarangService();
     private int index = -1;
 
-    /**
-     * Konstruktor untuk form tambah barang.
-     */
     public FormBarangView() {
         setTitle("FORM BARANG");
         setSize(600, 450);
@@ -95,13 +87,6 @@ public class FormBarangView extends JFrame {
 
         setContentPane(root);
     }
-
-    /**
-     * Konstruktor untuk form edit barang.
-     *
-     * @param b data barang
-     * @param index posisi data barang
-     */
     public FormBarangView(Barang b, int index) {
         this();
         this.index = index;
@@ -111,10 +96,6 @@ public class FormBarangView extends JFrame {
         stok.setText(String.valueOf(b.getStok()));
         harga.setText(String.valueOf(b.getHarga()));
     }
-
-    /**
-     * Menyimpan data barang (tambah atau edit).
-     */
     private void simpan() {
         try {
             Barang b = new Barang(
@@ -136,23 +117,11 @@ public class FormBarangView extends JFrame {
         }
     }
 
-    /**
-     * Membuat label form.
-     *
-     * @param text teks label
-     * @return label
-     */
     private JLabel createLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 15));
         return lbl;
     }
-
-    /**
-     * Membuat field input dengan sudut membulat.
-     *
-     * @return text field
-     */
     private JTextField createField() {
         RoundedTextField tf = new RoundedTextField(22);
         tf.setPreferredSize(new Dimension(280, 40));
@@ -160,18 +129,9 @@ public class FormBarangView extends JFrame {
         return tf;
     }
 
-    /**
-     * TextField dengan tampilan sudut membulat.
-     */
     class RoundedTextField extends JTextField {
 
         private final int radius;
-
-        /**
-         * Konstruktor RoundedTextField.
-         *
-         * @param radius tingkat kelengkungan sudut
-         */
         public RoundedTextField(int radius) {
             this.radius = radius;
             setOpaque(false);

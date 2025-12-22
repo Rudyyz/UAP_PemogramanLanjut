@@ -199,9 +199,6 @@ public class ListBarangView extends JFrame {
         }
     }
 
-    /**
-     * Membuka form edit data barang.
-     */
     private void editData() {
         int row = table.getSelectedRow();
         if (row == -1) {
