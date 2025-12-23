@@ -23,7 +23,6 @@ public class LaporanView extends JFrame {
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(new Color(240, 244, 249));
 
-        /* ================= HEADER ================= */
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(UIStyle.PRIMARY);
         header.setBorder(new EmptyBorder(18, 30, 18, 30));
@@ -34,12 +33,10 @@ public class LaporanView extends JFrame {
 
         header.add(lblTitle, BorderLayout.WEST);
 
-        /* ================= CARD ================= */
         JPanel card = new JPanel(new BorderLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new EmptyBorder(30, 30, 20, 30));
 
-        /* ================= TABLE ================= */
         String[] kolom = {"Keterangan", "Jumlah"};
         DefaultTableModel model = new DefaultTableModel(kolom, 0) {
             @Override
@@ -68,7 +65,6 @@ public class LaporanView extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
-        /* ================= DATA ================= */
         List<Barang> list = service.getAll();
         int totalBarang = list.size();
         int totalStok = list.stream().mapToInt(Barang::getStok).sum();
@@ -78,7 +74,6 @@ public class LaporanView extends JFrame {
 
         card.add(scrollPane, BorderLayout.CENTER);
 
-        /* ================= BUTTON ================= */
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 14, 15));
         bottom.setOpaque(false);
 
@@ -98,7 +93,6 @@ public class LaporanView extends JFrame {
         bottom.add(btnBack);
         card.add(bottom, BorderLayout.SOUTH);
 
-        /* ================= WRAPPER ================= */
         JPanel centerWrapper = new JPanel(new BorderLayout());
         centerWrapper.setOpaque(false);
         centerWrapper.setBorder(new EmptyBorder(25, 35, 25, 35));

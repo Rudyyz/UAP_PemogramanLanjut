@@ -11,12 +11,10 @@ public class DashboardView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // ===== ROOT PANEL =====
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(new Color(240, 244, 249));
         root.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // ===== HEADER =====
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
         header.setOpaque(false);
@@ -34,12 +32,10 @@ public class DashboardView extends JFrame {
         header.add(Box.createVerticalStrut(8));
         header.add(subtitle);
 
-        // ===== CARD CONTAINER =====
         JPanel cards = new JPanel(new BorderLayout(20, 20));
         cards.setOpaque(false);
         cards.setBorder(new EmptyBorder(30, 40, 20, 40));
 
-        // ===== TOP CARDS =====
         JPanel topCards = new JPanel(new GridLayout(1, 2, 20, 20));
         topCards.setOpaque(false);
 
@@ -61,7 +57,6 @@ public class DashboardView extends JFrame {
                 }
         ));
 
-        // ===== BOTTOM CARD =====
         JPanel bottomCards = new JPanel(new FlowLayout(FlowLayout.CENTER));
         bottomCards.setOpaque(false);
 
@@ -144,7 +139,6 @@ public class DashboardView extends JFrame {
                     RenderingHints.VALUE_ANTIALIAS_ON
             );
 
-            // Background
             g2.setColor(hover ? new Color(225, 235, 255) : Color.WHITE);
             g2.fillRoundRect(
                     0, 0,
@@ -152,7 +146,6 @@ public class DashboardView extends JFrame {
                     radius, radius
             );
 
-            // Border
             g2.setStroke(new BasicStroke(2f));
             g2.setColor(Color.BLACK);
             g2.drawRoundRect(
