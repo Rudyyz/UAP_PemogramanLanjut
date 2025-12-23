@@ -21,7 +21,10 @@ public class FileUtil {
                         LocalDate.parse(d[4])
                 ));
             }
-        } catch (Exception ignored) {
+        } catch (FileNotFoundException e) {
+            System.err.println("File barang.csv tidak ditemukan, data kosong.");
+        } catch (Exception e) {
+            System.err.println("Format data barang tidak valid: " + e.getMessage());
         }
         return list;
     }
@@ -37,8 +40,8 @@ public class FileUtil {
                                 b.getTanggalMasuk()
                 );
             }
-        } catch (Exception e) {
-            System.err.println("Gagal membaca file barang.csv: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Gagal menyimpan data barang: " + e.getMessage());
         }
     }
 }
