@@ -33,11 +33,7 @@ public class FileUtil {
         try (PrintWriter pw = new PrintWriter(new FileWriter(FILE))) {
             for (Barang b : list) {
                 pw.println(
-                        b.getKode() + "," +
-                                b.getNama() + "," +
-                                b.getStok() + "," +
-                                b.getHarga() + "," +
-                                b.getTanggalMasuk()
+                        b.getKode() + "," + b.getNama() + "," + b.getStok() + "," + b.getHarga() + "," + b.getTanggalMasuk()
                 );
             }
         } catch (IOException e) {
