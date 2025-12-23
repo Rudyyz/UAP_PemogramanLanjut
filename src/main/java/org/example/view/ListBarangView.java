@@ -28,7 +28,6 @@ public class ListBarangView extends JFrame {
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(new Color(240, 244, 249));
 
-        /* ================= HEADER ================= */
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(UIStyle.PRIMARY);
         header.setBorder(new EmptyBorder(16, 24, 16, 24));
@@ -36,16 +35,13 @@ public class ListBarangView extends JFrame {
         JLabel lblTitle = new JLabel("Data Barang");
         lblTitle.setForeground(Color.WHITE);
         lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
-
         header.add(lblTitle, BorderLayout.WEST);
 
-        /* ================= SEARCH ================= */
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
         searchPanel.setOpaque(false);
 
         txtSearch = new JTextField("Nama Barang");
         txtSearch.setPreferredSize(new Dimension(260, 38));
-        txtSearch.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         txtSearch.setForeground(Color.GRAY);
 
         txtSearch.addFocusListener(new FocusAdapter() {
@@ -67,21 +63,17 @@ public class ListBarangView extends JFrame {
         });
 
         JButton btnSearch = new JButton("Cari");
-        btnSearch.setFocusPainted(false);
         btnSearch.setPreferredSize(new Dimension(90, 38));
         btnSearch.addActionListener(e -> searchData());
 
         searchPanel.add(txtSearch);
         searchPanel.add(btnSearch);
-
         header.add(searchPanel, BorderLayout.EAST);
 
-        /* ================= CARD ================= */
         JPanel card = new JPanel(new BorderLayout());
         card.setBackground(Color.WHITE);
         card.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        /* ================= TABLE ================= */
         model = new DefaultTableModel(
                 new String[]{"Kode", "Nama", "Stok", "Harga", "Tanggal"}, 0
         ) {
@@ -95,26 +87,17 @@ public class ListBarangView extends JFrame {
         table.setRowHeight(36);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-
-        table.setShowGrid(true);
-        table.setGridColor(Color.BLACK);
-        table.getTableHeader().setBorder(
-                BorderFactory.createLineBorder(Color.BLACK)
-        );
-
         table.setSelectionBackground(new Color(220, 235, 255));
         table.setSelectionForeground(Color.BLACK);
-        table.setForeground(Color.BLACK);
-        table.setFillsViewportHeight(true);
+        table.setShowGrid(true);
+        table.setGridColor(Color.BLACK);
 
         loadData(service.getAll());
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
         card.add(scrollPane, BorderLayout.CENTER);
 
-        /* ================= BUTTON BAWAH ================= */
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 14, 12));
         bottom.setOpaque(false);
 
@@ -132,17 +115,15 @@ public class ListBarangView extends JFrame {
         bottom.add(btnEdit);
         bottom.add(btnDelete);
         bottom.add(btnBack);
-
         card.add(bottom, BorderLayout.SOUTH);
 
         JPanel centerWrapper = new JPanel(new BorderLayout());
-        centerWrapper.setOpaque(false);
         centerWrapper.setBorder(new EmptyBorder(20, 25, 20, 25));
+        centerWrapper.setOpaque(false);
         centerWrapper.add(card, BorderLayout.CENTER);
 
         root.add(header, BorderLayout.NORTH);
         root.add(centerWrapper, BorderLayout.CENTER);
-
         setContentPane(root);
     }
 
@@ -158,16 +139,18 @@ public class ListBarangView extends JFrame {
 
     private void loadData(List<Barang> list) {
         model.setRowCount(0);
-        for (Barang b : list) {
-            model.addRow(new Object[]{
-                    b.getKode(),
-                    b.getNama(),
-                    b.getStok(),
-                    b.getHarga(),
-                    b.getTanggalMasuk()
-            });
-        }
+
+        list.stream()
+                .sorted((a, b) -> a.getKode().compareToIgnoreCase(b.getKode()))
+                .forEach(b -> model.addRow(new Object[]{
+                        b.getKode(),
+                        b.getNama(),
+                        b.getStok(),
+                        b.getHarga(),
+                        b.getTanggalMasuk()
+                }));
     }
+
     private void searchData() {
         String keyword = txtSearch.getText().toLowerCase();
         if (keyword.equals("nama barang")) keyword = "";
@@ -179,6 +162,7 @@ public class ListBarangView extends JFrame {
                         .toList()
         );
     }
+
     private void deleteData() {
         int row = table.getSelectedRow();
         if (row == -1) {
