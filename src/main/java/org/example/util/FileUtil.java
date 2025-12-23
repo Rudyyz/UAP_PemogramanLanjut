@@ -37,7 +37,8 @@ public class FileUtil {
                                 b.getTanggalMasuk()
                 );
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            System.err.println("Gagal membaca file barang.csv: " + e.getMessage());
         }
     }
 }
