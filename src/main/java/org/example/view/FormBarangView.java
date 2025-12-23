@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDate;
+
 public class FormBarangView extends JFrame {
 
     private JTextField kode, nama, stok, harga;
@@ -20,11 +21,9 @@ public class FormBarangView extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // ===== ROOT =====
         JPanel root = new JPanel(new BorderLayout());
         root.setBackground(new Color(235, 240, 248));
 
-        // ===== HEADER =====
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(UIStyle.PRIMARY);
         header.setPreferredSize(new Dimension(0, 60));
@@ -36,7 +35,6 @@ public class FormBarangView extends JFrame {
 
         header.add(title, BorderLayout.WEST);
 
-        // ===== FORM =====
         JPanel form = new JPanel(new GridLayout(4, 2, 20, 20));
         form.setOpaque(false);
         form.setBorder(new EmptyBorder(30, 60, 30, 60));
@@ -56,7 +54,6 @@ public class FormBarangView extends JFrame {
         form.add(createLabel("Harga"));
         form.add(harga);
 
-        // ===== BUTTON =====
         JButton btnSimpan = new JButton("Simpan");
         btnSimpan.setFont(new Font("Segoe UI", Font.BOLD, 16));
         btnSimpan.setBackground(UIStyle.PRIMARY);
@@ -87,6 +84,7 @@ public class FormBarangView extends JFrame {
 
         setContentPane(root);
     }
+
     public FormBarangView(Barang b, int index) {
         this();
         this.index = index;
@@ -96,8 +94,23 @@ public class FormBarangView extends JFrame {
         stok.setText(String.valueOf(b.getStok()));
         harga.setText(String.valueOf(b.getHarga()));
     }
+
     private void simpan() {
         try {
+            // ===== VALIDASI KODE DUPLIKAT (HANYA SAAT TAMBAH) =====
+            boolean kodeSudahAda = service.getAll().stream()
+                    .anyMatch(b -> b.getKode().equalsIgnoreCase(kode.getText()));
+
+            if (kodeSudahAda && index == -1) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Kode barang sudah digunakan!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
             Barang b = new Barang(
                     kode.getText(),
                     nama.getText(),
@@ -113,7 +126,12 @@ public class FormBarangView extends JFrame {
             dispose();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Pastikan semua field diisi dengan benar!");
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pastikan semua field diisi dengan benar!",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
     }
 
@@ -122,6 +140,7 @@ public class FormBarangView extends JFrame {
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 15));
         return lbl;
     }
+
     private JTextField createField() {
         RoundedTextField tf = new RoundedTextField(22);
         tf.setPreferredSize(new Dimension(280, 40));
@@ -132,6 +151,7 @@ public class FormBarangView extends JFrame {
     class RoundedTextField extends JTextField {
 
         private final int radius;
+
         public RoundedTextField(int radius) {
             this.radius = radius;
             setOpaque(false);
