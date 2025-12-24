@@ -97,7 +97,6 @@ public class FormBarangView extends JFrame {
 
     private void simpan() {
         try {
-            // ===== VALIDASI KODE DUPLIKAT (HANYA SAAT TAMBAH) =====
             boolean kodeSudahAda = service.getAll().stream()
                     .anyMatch(b -> b.getKode().equalsIgnoreCase(kode.getText()));
 
